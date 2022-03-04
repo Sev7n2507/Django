@@ -1,7 +1,8 @@
 {% extends './base.html' %} {% block content %}
 <div class="main">
   <h1>Liste de produits</h1>
-  <a href="/app/lobby" type="button" class="btn btn-success">Go to chat</a>
+
+  <a href="/app/create/" type="button" class="btn btn-success"> Add Product </a>
 
   <div class="container" style="width: 80%; justify-content: center">
     <div class="row">
@@ -26,7 +27,6 @@
       {% endif %} {% endfor %}
     </div>
   </div>
-  <a href="/app/create/" type="button" class="btn btn-success"> Add Product </a>
 </div>
 <script type="text/javascript">
   $(function(){

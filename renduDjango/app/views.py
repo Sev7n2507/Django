@@ -1,12 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, response, Http404, HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout
 
 from .models import Product
-from django.utils import timezone
-from .forms import ProductForm
-from django.contrib import messages
-from django.urls import reverse
-from django.shortcuts import redirect
+from .forms import ProductForm, CreateUserForm
 
 
 def index(request):
@@ -84,3 +83,41 @@ def update_product(request, id):
 
 def lobby(request):
     return render(request, "app/lobby.html")
+
+
+def login(request):
+
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            auth_login(request, user)
+            return HttpResponseRedirect("/app/")
+        else:
+            messages.info(request, 'Username or password is incorrect')
+
+    context = {}
+    return render(request, "app/login.html", context)
+
+
+def logoutUser(request):
+    logout(request)
+    return HttpResponseRedirect("/app/login")
+
+
+def register(request):
+    form = CreateUserForm()
+
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid:
+            form.save()
+            user = form.cleaned_data.get("username")
+            messages.success(request, "Account was created for " + user)
+            return HttpResponseRedirect("/app/login")
+
+    context = {'form': form}
+    return render(request, "app/register.html", context)

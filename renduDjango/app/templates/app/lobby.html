@@ -1,5 +1,4 @@
 {% extends './base.html' %} {% block content %}
-<a href="/app/" type="button" class="btn btn-danger">Return to list</a>
 
 <h1>Let's chat !</h1>
 
@@ -24,6 +23,7 @@
       messages.insertAdjacentHTML(
         'beforeend',
         `<div>
+      
            <p>${data.message}</p>
           </div>`
       );

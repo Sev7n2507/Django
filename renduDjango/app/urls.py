@@ -8,4 +8,7 @@ urlpatterns = [
     path('<int:id>', views.detail_product, name='detail_product'),
     path('<int:id>/update/', views.update_product, name='update_product'),
     path('lobby', views.lobby, name='lobby'),
+    path('login', views.login, name='login'),
+    path('logout', views.logoutUser, name='logout'),
+    path('register', views.register, name='register'),
 ]
