@@ -1,14 +1,39 @@
 {% extends './base.html' %} {% block content %}
+<div class="container">
+  <h1>Ajouter un produit</h1>
 
-<h1>Ajouter un produit</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <!-- Security token -->
+    {% csrf_token %}
 
-<form method="POST" enctype="multipart/form-data">
-  <!-- Security token -->
-  {% csrf_token %}
+    <!-- Using the formset -->
 
-  <!-- Using the formset -->
-  {{ form.as_p }}
+    <div class="mb-3">
+      <label class="form-label">Nom</label>
+      {{form.name}}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      {{form.description}}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Prix</label>
+      {{form.price}}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Photo(url)</label>
+      {{form.photo}}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Quantité</label>
+      {{form.quantity}}
+    </div>
 
-  <input type="submit" value="Add" class="btn btn-success" />
-</form>
+    {% for error in form.errors %}
+    <div class="alert alert-danger">{{error}}</div>
+    {% endfor %}
+
+    <input type="submit" value="Add" class="btn btn-success" />
+  </form>
+</div>
 {% endblock %}

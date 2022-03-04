@@ -50,6 +50,7 @@ def detail_product(request, id):
         else:
             product.quantity = product.quantity - int(substract)
             product.save()
+            messages.success(request, "Commande prise avec succès")
 
             return HttpResponseRedirect("/app/")
 
@@ -73,6 +74,8 @@ def update_product(request, id):
     # redirect to detail_view
     if form.is_valid():
         form.save()
+        messages.success(request, "Produit modifié avec succès")
+
         return HttpResponseRedirect("/app/")
 
     # add form dictionary to context

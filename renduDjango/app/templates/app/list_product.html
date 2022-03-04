@@ -5,6 +5,9 @@
   <a href="/app/create/" type="button" class="btn btn-success"> Add Product </a>
 
   <div class="container" style="width: 80%; justify-content: center">
+    {% for message in messages %}
+    <div class="alert alert-primary">{{message}}</div>
+    {% endfor %}
     <div class="row">
       {% for data in dataset %} {% if data.quantity > 0%}
       <div class="col-lg-4 mb-3 d-flex align-items-stretch">
